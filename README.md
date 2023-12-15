@@ -1,36 +1,54 @@
-# Sony RAW star selector
+# Sony RAW Star Selector
 
-If you shot on RAW + JPEG you can use this script on the image folder to find all RAW images that you've
-rated 5 stars
+## Overview
 
-has only been tested on Macbook M2 and Macbook Intel
+This Python script is designed for Sony photographers who shoot in RAW + JPEG formats. It helps you easily find and transfer all 5-star rated RAW images from your camera to a designated folder. This tool is especially useful for streamlining your post-shoot workflow.
 
-## Tutorial
+**Compatibility:** Tested on MacBook M2 and MacBook Intel.
 
-Download main.py and store somewhere
+If you find this script useful, please consider starring this repository and sharing it with your community!
 
-if its your first time using the programme run:
+## Installation
 
-```bash
-pip install -r requirements.txt
-```
+1. **Download the Script**
 
-1. Go to the terminal and navigate to the folder which contains your main.py
+   - Download `main.py` from this repository to your device.
 
-```bash
-   cd Downloads/NAME_OF_FOLDER
-```
+2. **Prepare Your Environment**
+   - Open the Terminal and navigate to the folder containing `main.py`:
+     ```bash
+     cd path/to/folder
+     ```
+   - If it's your first time running this script, install required dependencies:
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-2. run the python file by copy pasting the following command in your terminal
+## Usage
 
-```bash
-   python3 main.py
-```
+1. **Run the Script**
 
-3. enter pathname from where you would like to process (eg: /Volume/SD/DCIM/100MSDCF)
-4. enter pathname to where you would like to process (eg: output)
+   - Execute `main.py` using the following command:
+     ```bash
+     python3 main.py
+     ```
+
+2. **Specify Directories**
+   - Enter the pathname of the source directory (e.g., `/Volume/SD/DCIM/100MSDCF`).
+   - Enter the pathname of the destination directory (e.g., `/Desktop/output`).
 
 ## FAQ
 
-How do I find the pathname on MacOS?
-https://apple.stackexchange.com/questions/317992/is-there-any-way-to-get-the-path-of-a-folder-in-macos
+**Q: How do I find the pathname on MacOS?**
+A: You can find instructions on how to locate a pathname on MacOS [here](https://apple.stackexchange.com/questions/317992/is-there-any-way-to-get-the-path-of-a-folder-in-macos).
+
+## Script Details
+
+**Dependencies:** `PIL` for image handling, `os` for file management, and `shutil` for file transfer.
+
+**Functionality:**
+
+- The script scans the specified folder for JPEG images.
+- It checks each image's metadata for a 5-star rating.
+- If a 5-star JPEG is found, the script locates its RAW counterpart.
+- The RAW images are then copied to the designated output folder.
