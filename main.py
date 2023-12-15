@@ -8,7 +8,10 @@ target_extension = ['.ARW', '.arw']
 def check_rating(filepath):
     img = Image.open(filepath) 
     xml_object = img.getxmp()
-    return xml_object['xmpmeta']['RDF']['Description']['Rating']
+    rating = xml_object['xmpmeta']['RDF']['Description']['Rating']
+    if rating:
+        return rating
+    return None
 
 def find_equivalent_file(input_dir, filename, new_extensions):
     base_name, _ = os.path.splitext(filename)
@@ -42,7 +45,7 @@ if __name__ == '__main__':
             if rating == '5':
                 print(f'\n Item found {photo.name}')
                 equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
-                
+
                 if equivalent_photo_path:
                     shutil.copy(equivalent_photo_path, output_directory)
                 else:
