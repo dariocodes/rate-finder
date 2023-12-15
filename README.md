@@ -1,6 +1,7 @@
 # Sony RAW star selector
 
-Finds all 5 star rated pictures of sony raw (.ARW) files from input directory and copies them to output directory
+If you shot on RAW + JPEG you can use this script on the image folder to find all RAW images that you've
+rated 5 stars
 
 has only been tested on Macbook M2 and Macbook Intel
 

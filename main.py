@@ -26,21 +26,23 @@ if __name__ == '__main__':
 
      #index how many items to process]
     total_items = 0
+    checked_items = 1
 
     for photo in os.scandir(input_directory):
         if photo.is_file() and photo.name.endswith(tuple(extensions)):
             total_items += 1
 
-    checked_items = 1
-
     for photo in os.scandir(input_directory):
         if photo.is_file() and photo.name.endswith(tuple(extensions)):
             print(f'\r{checked_items}/{total_items} processed', end='')
+
             full_path = os.path.join(input_directory, photo.name)
             rating = check_rating(full_path)
+
             if rating == '5':
                 print(f'\n Item found {photo.name}')
                 equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
+                
                 if equivalent_photo_path:
                     shutil.copy(equivalent_photo_path, output_directory)
                 else:
