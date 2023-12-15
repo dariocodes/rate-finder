@@ -21,10 +21,10 @@ from PIL import Image
 import os
 import shutil
 
-extensions = ['.JPEG', '.jpeg', '.jpg', '.JPG']
-target_extension = ['.ARW', '.arw']
+extensions: list[str] = ['.JPEG', '.jpeg', '.jpg', '.JPG']
+target_extension: list[str] = ['.ARW', '.arw']
 
-def check_rating(filepath):
+def check_rating(filepath: str):
     img = Image.open(filepath) 
     xml_object = img.getxmp()
     rating = xml_object['xmpmeta']['RDF']['Description']['Rating']
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     input_directory = input(str('Path of input directory: '))
     output_directory = input(str('Path of output directory: '))
 
-     #index how many items to process]
+     #index how many items to process
     total_items = 0
     checked_items = 1
 
