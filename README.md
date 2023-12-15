@@ -10,9 +10,11 @@ If you find this script useful, please consider starring this repository and sha
 
 ## Installation
 
-1. **Download the Script**
+1. **Download the Repository**
 
-   - Download `main.py` from this repository to your device.
+   - Look for the green `Code` button near the top of the page.
+   - Click on the `Code` button, and then select `Download ZIP` from the dropdown menu.
+   - Once the ZIP file is downloaded, extract it to a desired location on your device. The `main.py` file is inside the extracted folder.
 
 2. **Prepare Your Environment**
    - Open the Terminal and navigate to the folder containing `main.py`:
