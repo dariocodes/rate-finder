@@ -57,7 +57,7 @@ if __name__ == '__main__':
     for photo in os.scandir(input_directory):
         if photo.is_file() and photo.name.endswith(tuple(extensions)):
             print(f'\r{checked_items}/{total_items} processed', end='')
-
+            checked_items += 1
             full_path = os.path.join(input_directory, photo.name)
             rating = check_rating(full_path)
 

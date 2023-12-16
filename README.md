@@ -23,7 +23,7 @@ If you find this script useful, please consider starring this repository and sha
      ```
    - If it's your first time running this script, install required dependencies:
      ```bash
-     pip install -r requirements.txt
+     pip install -r requirements.txt #or: pip3 install -r requirements.txt
      ```
 
 ## Usage
@@ -46,7 +46,7 @@ A: You can find instructions on how to locate a pathname on MacOS [here](https:/
 
 ## Script Details
 
-**Dependencies:** `PIL` for image handling, `os` for file management, and `shutil` for file transfer.
+**Dependencies:** `PIL` for image handling, `os` for file management, `shutil` for file transfer, and `defusedxml` to prevent any potentially malicious operation.
 
 **Functionality:**
 
