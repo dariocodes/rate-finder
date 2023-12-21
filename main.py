@@ -55,24 +55,25 @@ if __name__ == '__main__':
             total_items += 1
 
     for photo in os.scandir(input_directory):
-        try:
-            if photo.is_file() and photo.name.endswith(tuple(extensions)):
-                print(f'\r{checked_items}/{total_items} processed', end='', flush=True)
-                checked_items += 1
-                full_path = os.path.join(input_directory, photo.name)
+
+        if photo.is_file() and photo.name.endswith(tuple(extensions)):
+            print(f'\r{checked_items}/{total_items} processed', end='', flush=True)
+            checked_items += 1
+            full_path = os.path.join(input_directory, photo.name)
+            try:
                 rating = check_rating(full_path)
+            except:
+                print(f'Error on file {full_path}')
 
-                if rating == '5':
-                    print(f'\n Item found {photo.name}')
-                    equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
+            if rating == '5':
+                print(f'\n Item found {photo.name}')
+                equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
 
-                    if equivalent_photo_path:
-                        shutil.copy(equivalent_photo_path, output_directory)
-                    else:
-                        print(f'the RAW equivalent of {photo.name} could not be found')
-                        continue
-        except:
-            print(f'Error on file {photo.name}')
+                if equivalent_photo_path:
+                    shutil.copy(equivalent_photo_path, output_directory)
+                else:
+                    print(f'the RAW equivalent of {photo.name} could not be found')
+                    continue
 """
 MIT License
 
