@@ -38,6 +38,8 @@ If you find this script useful, please consider starring this repository and sha
 2. **Specify Directories**
    - Enter the pathname of the source directory (e.g., `/Volume/SD/DCIM/100MSDCF`).
    - Enter the pathname of the destination directory (e.g., `/Desktop/output`).
+   - Would you like to pick a specific date? (e.g., `Yes`).
+   - If yes, pick the desired date (eg. `2000-12-31`)
 
 ## FAQ
 
