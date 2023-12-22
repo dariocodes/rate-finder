@@ -20,6 +20,7 @@ For more information and FAQs, refer to the README.md file in the repository.
 from PIL import Image
 import os
 import shutil
+from datetime import datetime
 
 extensions: list[str] = ['.JPEG', '.jpeg', '.jpg', '.JPG']
 target_extension: list[str] = ['.ARW', '.arw']
@@ -31,6 +32,17 @@ def check_rating(filepath: str):
     if rating:
         return rating
     return None
+
+def check_date(filepath: str, input_date: str)-> bool:
+    img = Image.open(filepath) 
+    xml_object = img.getxmp()
+    creation_date_and_time = xml_object['xmpmeta']['RDF']['Description']['CreateDate']
+    creation_date = creation_date_and_time[:10]
+    if input_date == creation_date:
+        return True
+    else:
+        return False
+
 
 def find_equivalent_file(input_dir, filename, new_extensions):
     base_name, _ = os.path.splitext(filename)
@@ -45,6 +57,7 @@ if __name__ == '__main__':
     # assign directory
     input_directory = input(str('Path of input directory: '))
     output_directory = input(str('Path of output directory: '))
+    date = str(input('What date would you like to process?\nPlease write it like year-month-day eg. 2023-05-02: '))
 
      #index how many items to process
     total_items = 0
@@ -62,10 +75,11 @@ if __name__ == '__main__':
             full_path = os.path.join(input_directory, photo.name)
             try:
                 rating = check_rating(full_path)
+                date = check_date(full_path, date)
             except:
                 print(f'Error on file {full_path}')
 
-            if rating == '5':
+            if rating == '5' and date:
                 print(f'\n Item found {photo.name}')
                 equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
 
