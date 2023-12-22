@@ -57,7 +57,13 @@ if __name__ == '__main__':
     # assign directory
     input_directory = input(str('Path of input directory: '))
     output_directory = input(str('Path of output directory: '))
-    date = str(input('What date would you like to process?\nPlease write it like year-month-day eg. 2023-05-02: '))
+
+    date_process = False
+    confirmation = {'yes', 'y', 'ye'}
+    date_choice = (str(input('Would you like to pick a specific date?[Y/N]: '))).lower()
+    if date_choice in confirmation:
+        date_process = True
+        date = str(input('What date would you like to process?\nPlease write it like year-month-day eg. 2023-05-02: '))
 
      #index how many items to process
     total_items = 0
@@ -75,11 +81,14 @@ if __name__ == '__main__':
             full_path = os.path.join(input_directory, photo.name)
             try:
                 rating = check_rating(full_path)
-                date = check_date(full_path, date)
+                if date_process == True:
+                    photo_date = check_date(full_path, date)
+                else:
+                    photo_date = True
             except:
                 print(f'Error on file {full_path}')
 
-            if rating == '5' and date:
+            if rating == '5' and photo_date:
                 print(f'\n Item found {photo.name}')
                 equivalent_photo_path = find_equivalent_file(input_directory, photo.name, target_extension)
 
