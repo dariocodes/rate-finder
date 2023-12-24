@@ -25,22 +25,32 @@ from datetime import datetime
 extensions: list[str] = ['.JPEG', '.jpeg', '.jpg', '.JPG']
 target_extension: list[str] = ['.ARW', '.arw']
 
-def check_rating(filepath: str):
-    img = Image.open(filepath) 
-    xml_object = img.getxmp()
-    rating = xml_object['xmpmeta']['RDF']['Description']['Rating']
-    if rating:
+def check_rating(filepath: str)-> int:
+    try:
+        img = Image.open(filepath) 
+        xml_object = img.getxmp()
+        rating = xml_object['xmpmeta']['RDF']['Description'].get('Rating', 0)
         return rating
-    return None
+    except KeyError as e:
+        print(f"Rating metadata field missing in file {filepath}: {e}")
+        return 0
+    except Exception as e:
+        print(f"Error processing file {filepath} for rating: {e}")
+        return 0
 
-def check_date(filepath: str, input_date: str)-> bool:
-    img = Image.open(filepath) 
-    xml_object = img.getxmp()
-    creation_date_and_time = xml_object['xmpmeta']['RDF']['Description']['CreateDate']
-    creation_date = creation_date_and_time[:10]
-    if input_date == creation_date:
-        return True
-    else:
+def check_date(filepath: str, input_date: str) -> bool:
+    try:
+        img = Image.open(filepath) 
+        xml_object = img.getxmp()
+        creation_date_and_time = xml_object['xmpmeta']['RDF']['Description']['CreateDate']
+        creation_date = creation_date_and_time[:10]
+        print(f"Checking date: Image date = {creation_date}, Input date = {input_date}")  # Debugging line
+        return input_date == creation_date
+    except KeyError as e:
+        print(f"Metadata field missing in file {filepath}: {e}")
+        return False
+    except Exception as e:
+        print(f"Error processing file {filepath}: {e}")
         return False
 
 
@@ -79,14 +89,12 @@ if __name__ == '__main__':
             print(f'\r{checked_items}/{total_items} processed', end='', flush=True)
             checked_items += 1
             full_path = os.path.join(input_directory, photo.name)
-            try:
-                rating = check_rating(full_path)
-                if date_process == True:
-                    photo_date = check_date(full_path, date)
-                else:
-                    photo_date = True
-            except:
-                print(f'Error on file {full_path}')
+
+            photo_date = True
+
+            rating = check_rating(full_path)
+            if date_process == True:
+                photo_date = check_date(full_path, date)
 
             if rating == '5' and photo_date:
                 print(f'\n Item found {photo.name}')
